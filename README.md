@@ -18,7 +18,7 @@ To run this build you need:
 
   # Setup
   1 Clone 
-  - git clone https://github.com/CallmeJef/POS.git
+  - git clone [https://github.com/CallmeJef/POS.git](https://github.com/CallmeJef/POS.git)
   - cd PosApp
 
   2 Build 
