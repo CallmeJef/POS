@@ -10,7 +10,7 @@ To run this build you need:
 - .NET 8 SDK
 
 # Dependencies
--SQLite
+- SQLite
 - Avalonia 11.2
 - Avalonia.Desktop 11.2
 - Avalonia.Themes.Fluent 11.2
@@ -21,9 +21,9 @@ To run this build you need:
   - git clone https://github.com/CallmeJef/POS.git
   - cd PosApp
 
- 2 Build 
- https://github.com/CallmeJef/POS
-
- # Default Login
- User Name | Password
- UserAdmin | admin123
+  2 Build 
+    https://github.com/CallmeJef/POS
+    
+  # Default Login
+    User Name | Password
+    UserAdmin | admin123
