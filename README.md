@@ -1,4 +1,4 @@
-# POS
+# POS (Point of Sale)
 
 **Description**
 A POS System, made with Claude & Gemini AI. 
