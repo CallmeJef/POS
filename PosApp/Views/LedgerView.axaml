@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.LedgerView">
+
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Background="#F1F5F3" Margin="0">
+
+    <!-- title + month filter -->
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="24,20,24,12">
+      <TextBlock Text="Ledger" FontSize="26" FontWeight="Bold" Foreground="#027342"
+                 VerticalAlignment="Center" />
+      <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+        <TextBlock Text="Month" Classes="label" VerticalAlignment="Center" />
+        <ComboBox x:Name="MonthBox" MinWidth="180" SelectionChanged="MonthBox_SelectionChanged" />
+      </StackPanel>
+    </Grid>
+
+    <!-- table header -->
+    <Border Grid.Row="1" Background="#027342" Margin="24,0,24,0" CornerRadius="10,10,0,0" Padding="16,10">
+      <Grid ColumnDefinitions="110,100,80,160,*,130">
+        <TextBlock Grid.Column="0" Text="Date" Foreground="White" FontWeight="SemiBold" />
+        <TextBlock Grid.Column="1" Text="Time" Foreground="White" FontWeight="SemiBold" />
+        <TextBlock Grid.Column="2" Text="Year" Foreground="White" FontWeight="SemiBold" />
+        <TextBlock Grid.Column="3" Text="Cashier" Foreground="White" FontWeight="SemiBold" />
+        <TextBlock Grid.Column="4" Text="Item" Foreground="White" FontWeight="SemiBold" />
+        <TextBlock Grid.Column="5" Text="Total Price" Foreground="White" FontWeight="SemiBold"
+                   HorizontalAlignment="Right" />
+      </Grid>
+    </Border>
+
+    <!-- table body -->
+    <Border Grid.Row="2" Background="White" Margin="24,0,24,0" BorderBrush="#E3E8E5" BorderThickness="1,0,1,1">
+      <Grid>
+        <ScrollViewer>
+          <ItemsControl x:Name="LedgerList">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <!-- month header row -->
+                  <Border IsVisible="{Binding IsHeader}" Background="#E3F1EA" Padding="16,8">
+                    <TextBlock Text="{Binding HeaderText}" FontWeight="Bold" Foreground="#027342" />
+                  </Border>
+                  <!-- order row -->
+                  <Border IsVisible="{Binding IsData}" BorderBrush="#EEF2F0" BorderThickness="0,0,0,1"
+                          Padding="16,10">
+                    <Grid ColumnDefinitions="110,100,80,160,*,130">
+                      <TextBlock Grid.Column="0" Text="{Binding Date}" />
+                      <TextBlock Grid.Column="1" Text="{Binding Time}" />
+                      <TextBlock Grid.Column="2" Text="{Binding Year}" />
+                      <TextBlock Grid.Column="3" Text="{Binding Cashier}" TextTrimming="CharacterEllipsis" />
+                      <TextBlock Grid.Column="4" Text="{Binding Item}" TextWrapping="Wrap" />
+                      <TextBlock Grid.Column="5" Text="{Binding TotalText}" FontWeight="SemiBold"
+                                 HorizontalAlignment="Right" />
+                    </Grid>
+                  </Border>
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+        <TextBlock x:Name="EmptyText" Classes="muted" IsVisible="False"
+                   Text="No completed orders yet."
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Grid>
+    </Border>
+
+    <!-- footer: Return (bottom-left) and totals (bottom-right) -->
+    <Grid Grid.Row="3" ColumnDefinitions="Auto,*,Auto" Margin="24,14,24,20">
+      <Button Grid.Column="0" Classes="outline" Content="Return" Click="Return_Click"
+              VerticalAlignment="Bottom" />
+      <StackPanel Grid.Column="2" Spacing="2" HorizontalAlignment="Right">
+        <TextBlock x:Name="GoodsText" FontWeight="SemiBold" HorizontalAlignment="Right" />
+        <TextBlock x:Name="TotalText" FontSize="20" FontWeight="Bold" Foreground="#027342"
+                   HorizontalAlignment="Right" />
+      </StackPanel>
+    </Grid>
+
+  </Grid>
+</UserControl>

@@ -1,0 +1,304 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.CashierView">
+
+  <Grid ColumnDefinitions="250,*,380" Background="#F1F5F3">
+
+    <!-- ============ LEFT: categories + queue ============ -->
+    <Border Grid.Column="0" Background="White" BorderBrush="#E3E8E5"
+            BorderThickness="0,0,1,0" Padding="14">
+      <Grid RowDefinitions="Auto,*,Auto,Auto,Auto,*">
+
+        <TextBlock Grid.Row="0" Text="Categories" Classes="h1" Margin="0,0,0,10" />
+
+        <ScrollViewer Grid.Row="1">
+          <ItemsControl x:Name="CategoryList">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button Classes="cat" Classes.selected="{Binding IsSelected}"
+                        Content="{Binding Name}" Command="{Binding SelectCommand}"
+                        HorizontalAlignment="Stretch" Margin="0,0,0,6" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" Height="1" Background="#E3E8E5" Margin="0,12" />
+
+        <!-- queue header -->
+        <Grid Grid.Row="3" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+          <TextBlock Text="Queue" Classes="h1" />
+          <TextBlock Grid.Column="1" x:Name="QueueCountText" Classes="muted" VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- type a queue number to mark that order as received -->
+        <Grid Grid.Row="4" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+          <TextBox x:Name="QueueNumberBox" Watermark="Queue #" MaxLength="4" Margin="0,0,6,0" />
+          <Button Grid.Column="1" Classes="outline small" Content="Serve" Click="QuickServe_Click" />
+        </Grid>
+
+        <ScrollViewer Grid.Row="5">
+          <StackPanel>
+            <TextBlock x:Name="QueueEmptyText" Text="No orders waiting." Classes="muted" FontSize="12" />
+            <ItemsControl x:Name="QueueList">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border Classes="section" Padding="10" Margin="0,0,0,8">
+                    <StackPanel Spacing="6">
+                      <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Border Background="#027342" CornerRadius="8" Padding="8,2">
+                          <TextBlock Text="{Binding Number}" Foreground="White" FontWeight="Bold" />
+                        </Border>
+                        <TextBlock Grid.Column="1" Text="{Binding TimeText}" Classes="muted" FontSize="12"
+                                   Margin="8,0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="2" Text="{Binding TotalText}" FontWeight="SemiBold"
+                                   Foreground="#027342" VerticalAlignment="Center" />
+                      </Grid>
+                      <TextBlock Text="{Binding Summary}" FontSize="12" TextWrapping="Wrap"
+                                 MaxLines="3" TextTrimming="CharacterEllipsis" />
+                      <Grid ColumnDefinitions="*,*">
+                        <Button Grid.Column="0" Classes="primary small" Content="Served"
+                                Command="{Binding ServeCommand}" HorizontalAlignment="Stretch"
+                                Margin="0,0,3,0" />
+                        <Button Grid.Column="1" Classes="danger small" Content="Void"
+                                Command="{Binding VoidCommand}" HorizontalAlignment="Stretch"
+                                Margin="3,0,0,0" />
+                      </Grid>
+                    </StackPanel>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </ScrollViewer>
+
+      </Grid>
+    </Border>
+
+    <!-- ============ CENTER: item cards ============ -->
+    <DockPanel Grid.Column="1" Margin="20">
+      <StackPanel DockPanel.Dock="Top" Margin="0,0,0,14">
+        <TextBlock x:Name="CategoryTitle" FontSize="24" FontWeight="Bold" />
+        <TextBlock x:Name="CategorySubtitle" Classes="muted" />
+      </StackPanel>
+      <Grid>
+        <ScrollViewer>
+          <ItemsControl x:Name="ItemGrid">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Classes="card" Width="190" Height="275" Margin="0,0,16,16" ClipToBounds="True">
+                  <Grid RowDefinitions="140,*,Auto">
+                    <Border Grid.Row="0" Background="#E3F1EA">
+                      <Panel>
+                        <TextBlock Text="{Binding Initial}" FontSize="44" FontWeight="Bold"
+                                   Foreground="#027342" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" IsVisible="{Binding !HasImage}" />
+                        <Image Source="{Binding Image}" Stretch="UniformToFill"
+                               IsVisible="{Binding HasImage}" />
+                      </Panel>
+                    </Border>
+                    <StackPanel Grid.Row="1" Margin="12,8" Spacing="2" VerticalAlignment="Center">
+                      <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
+                                 TextTrimming="CharacterEllipsis" />
+                      <TextBlock Text="{Binding PriceText}" Foreground="#027342" FontWeight="Bold" />
+                    </StackPanel>
+                    <Button Grid.Row="2" Classes="primary" Content="Add to Order"
+                            Command="{Binding AddCommand}" HorizontalAlignment="Stretch"
+                            CornerRadius="0" Padding="12" />
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+        <TextBlock x:Name="EmptyHint" Classes="muted" IsVisible="False" TextWrapping="Wrap"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Grid>
+    </DockPanel>
+
+    <!-- ============ RIGHT: checkout ============ -->
+    <Border Grid.Column="2" Background="White" BorderBrush="#E3E8E5"
+            BorderThickness="1,0,0,0" Padding="16">
+      <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- user name (top-left) + burger -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+          <StackPanel VerticalAlignment="Center">
+            <TextBlock x:Name="UserNameText" FontWeight="Bold" FontSize="18"
+                       TextTrimming="CharacterEllipsis" />
+            <TextBlock Text="Cashier" Classes="muted" FontSize="12" />
+          </StackPanel>
+          <Button Grid.Column="1" Classes="ghost" Padding="10" VerticalAlignment="Center">
+            <StackPanel Spacing="4" Width="22">
+              <Border Height="3" CornerRadius="2" Background="#027342" />
+              <Border Height="3" CornerRadius="2" Background="#027342" />
+              <Border Height="3" CornerRadius="2" Background="#027342" />
+            </StackPanel>
+            <Button.Flyout>
+              <MenuFlyout Placement="BottomEdgeAlignedRight">
+                <MenuItem Header="Logout" Click="Logout_Click" />
+              </MenuFlyout>
+            </Button.Flyout>
+          </Button>
+        </Grid>
+
+        <!-- Check out + current date/time -->
+        <StackPanel Grid.Row="1" Margin="0,12,0,8">
+          <TextBlock Text="Check out" FontSize="22" FontWeight="Bold" Foreground="#027342" />
+          <TextBlock x:Name="ClockText" Classes="muted" FontSize="12" />
+        </StackPanel>
+
+        <!-- order lines -->
+        <Grid Grid.Row="2">
+          <ScrollViewer>
+            <ItemsControl x:Name="CartList">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border Classes="section" Padding="10" Margin="0,0,0,8">
+                    <StackPanel Spacing="8">
+
+                      <!-- name + customization toggle -->
+                      <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel>
+                          <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                          <TextBlock Text="{Binding OptionsText}" Classes="muted" FontSize="12"
+                                     TextWrapping="Wrap" IsVisible="{Binding HasOptionsText}" />
+                          <TextBlock Text="{Binding UnitPriceText}" Classes="muted" FontSize="12" />
+                        </StackPanel>
+                        <Button Grid.Column="1" Classes="outline" Content="{Binding ExpandIcon}"
+                                Command="{Binding ToggleCommand}" Width="34" Height="34" Padding="0"
+                                FontSize="18" VerticalAlignment="Top" Margin="8,0,0,0"
+                                ToolTip.Tip="Customize (size and additions)" />
+                      </Grid>
+
+                      <!-- quantity and line total -->
+                      <Grid ColumnDefinitions="Auto,Auto,Auto,*">
+                        <Button Grid.Column="0" Classes="outline" Content="−" Width="32" Height="32"
+                                Padding="0" FontSize="16" Command="{Binding DecreaseCommand}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Qty}" FontWeight="Bold" FontSize="16"
+                                   MinWidth="36" TextAlignment="Center" VerticalAlignment="Center" />
+                        <Button Grid.Column="2" Classes="outline" Content="+" Width="32" Height="32"
+                                Padding="0" FontSize="16" Command="{Binding IncreaseCommand}" />
+                        <TextBlock Grid.Column="3" Text="{Binding LineTotalText}" FontWeight="Bold"
+                                   Foreground="#027342" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                      </Grid>
+
+                      <!-- customization panel (opens with the + button) -->
+                      <StackPanel IsVisible="{Binding IsExpanded}" Spacing="8">
+                        <Border Height="1" Background="#E3E8E5" />
+
+                        <StackPanel IsVisible="{Binding HasSizes}" Spacing="4">
+                          <TextBlock Text="Size" Classes="label" />
+                          <ItemsControl ItemsSource="{Binding Sizes}">
+                            <ItemsControl.ItemsPanel>
+                              <ItemsPanelTemplate>
+                                <WrapPanel />
+                              </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate>
+                                <Button Classes="chip" Classes.selected="{Binding IsSelected}"
+                                        Content="{Binding Label}" Command="{Binding SelectCommand}"
+                                        Margin="0,0,6,6" />
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                        </StackPanel>
+
+                        <StackPanel IsVisible="{Binding HasAdditions}" Spacing="2">
+                          <TextBlock Text="Additions" Classes="label" />
+                          <ItemsControl ItemsSource="{Binding Additions}">
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate>
+                                <CheckBox Content="{Binding Label}"
+                                          IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                        </StackPanel>
+
+                        <TextBlock Text="No customizations for this item." Classes="muted" FontSize="12"
+                                   IsVisible="{Binding NoCustomizations}" />
+                      </StackPanel>
+
+                    </StackPanel>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+          <TextBlock x:Name="CartEmptyText" Classes="muted" TextWrapping="Wrap" TextAlignment="Center"
+                     Text="No items yet. Tap “Add to Order” on an item."
+                     HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- footer: discount, payment, totals -->
+        <StackPanel Grid.Row="3" Spacing="8" Margin="0,10,0,0">
+          <Border Height="1" Background="#E3E8E5" />
+
+          <TextBlock Text="Discount" Classes="label" />
+          <ItemsControl x:Name="DiscountList">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button Classes="chip" Classes.selected="{Binding IsSelected}"
+                        Content="{Binding Label}" Command="{Binding SelectCommand}" Margin="0,0,6,0" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+          <TextBlock Text="Payment method" Classes="label" />
+          <TextBlock x:Name="NoPaymentText" Classes="muted" FontSize="12" IsVisible="False"
+                     Text="No payment methods set up by the admin." />
+          <ItemsControl x:Name="PaymentList">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button Classes="chip" Classes.selected="{Binding IsSelected}"
+                        Content="{Binding Name}" Command="{Binding SelectCommand}" Margin="0,0,6,6" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+          <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Subtotal" Classes="muted" Margin="0,0,0,4" />
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="SubtotalText" Margin="0,0,0,4" />
+            <TextBlock Grid.Row="1" Grid.Column="0" x:Name="DiscountLabel" Text="Discount" Classes="muted"
+                       Margin="0,0,0,4" />
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="DiscountText" Margin="0,0,0,4" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Total to pay" FontWeight="Bold" FontSize="18"
+                       Margin="0,0,0,4" />
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="TotalText" FontWeight="Bold" FontSize="22"
+                       Foreground="#027342" Margin="0,0,0,4" />
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Amount received" VerticalAlignment="Center"
+                       Margin="0,0,0,4" />
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="AmountBox" Width="140" Watermark="0.00"
+                     TextAlignment="Right" Margin="0,0,0,4" />
+            <TextBlock Grid.Row="4" Grid.Column="0" x:Name="ChangeLabel" Text="Change" FontWeight="Bold"
+                       FontSize="18" />
+            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="ChangeText" FontWeight="Bold" FontSize="22"
+                       HorizontalAlignment="Right" />
+          </Grid>
+
+          <Button Classes="primary" Content="Place Order" HorizontalAlignment="Stretch"
+                  Padding="14" FontSize="16" Click="PlaceOrder_Click" />
+        </StackPanel>
+
+      </Grid>
+    </Border>
+
+  </Grid>
+</UserControl>

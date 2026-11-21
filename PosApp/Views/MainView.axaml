@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.MainView">
+  <Grid>
+    <!-- current page -->
+    <ContentControl x:Name="PageHost"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch" />
+    <!-- dialog overlay (hidden until a dialog is shown) -->
+    <Grid x:Name="DialogLayer" IsVisible="False" />
+  </Grid>
+</UserControl>

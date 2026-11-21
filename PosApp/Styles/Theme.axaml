@@ -1,0 +1,197 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- ===== Text ===== -->
+  <Style Selector="TextBlock.error">
+    <Setter Property="Foreground" Value="#B3261E" />
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+  <Style Selector="TextBlock.status">
+    <Setter Property="Foreground" Value="#027342" />
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+  <Style Selector="TextBlock.muted">
+    <Setter Property="Foreground" Value="#5F6B66" />
+  </Style>
+  <Style Selector="TextBlock.h1">
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Foreground" Value="#027342" />
+  </Style>
+  <Style Selector="TextBlock.label">
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="#33443C" />
+  </Style>
+
+  <!-- ===== Surfaces ===== -->
+  <Style Selector="Border.card">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="CornerRadius" Value="14" />
+    <Setter Property="BorderBrush" Value="#E3E8E5" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BoxShadow" Value="0 4 18 0 #26000000" />
+  </Style>
+  <Style Selector="Border.section">
+    <Setter Property="Background" Value="#F7FAF8" />
+    <Setter Property="CornerRadius" Value="12" />
+    <Setter Property="BorderBrush" Value="#E3E8E5" />
+    <Setter Property="BorderThickness" Value="1" />
+  </Style>
+
+  <!-- ===== Primary (solid green) button ===== -->
+  <Style Selector="Button.primary">
+    <Setter Property="Background" Value="#027342" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="18,11" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#035C36" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#024A2B" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.primary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#9CC5B3" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+
+  <!-- ===== Danger (red) button ===== -->
+  <Style Selector="Button.danger">
+    <Setter Property="Background" Value="#B3261E" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="18,11" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.danger:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#8F1E18" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.danger:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#74180F" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+
+  <!-- ===== Outline button ===== -->
+  <Style Selector="Button.outline">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="Foreground" Value="#027342" />
+    <Setter Property="BorderBrush" Value="#027342" />
+    <Setter Property="BorderThickness" Value="1.5" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="18,10" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.outline:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#EAF4EF" />
+    <Setter Property="BorderBrush" Value="#027342" />
+    <Setter Property="Foreground" Value="#027342" />
+  </Style>
+  <Style Selector="Button.outline:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#D5EADF" />
+    <Setter Property="BorderBrush" Value="#027342" />
+    <Setter Property="Foreground" Value="#027342" />
+  </Style>
+
+  <!-- ===== Ghost (text-only) button ===== -->
+  <Style Selector="Button.ghost">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#027342" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="10,8" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button.ghost:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#EAF4EF" />
+    <Setter Property="Foreground" Value="#027342" />
+  </Style>
+  <Style Selector="Button.ghost:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#D5EADF" />
+    <Setter Property="Foreground" Value="#027342" />
+  </Style>
+
+  <!-- ===== Small modifier (combine with another class) ===== -->
+  <Style Selector="Button.small">
+    <Setter Property="Padding" Value="12,6" />
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+
+  <!-- ===== Category list button (left sidebar) ===== -->
+  <Style Selector="Button.cat">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="#1F2D27" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="14,12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+  </Style>
+  <Style Selector="Button.cat:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#EAF4EF" />
+    <Setter Property="Foreground" Value="#1F2D27" />
+  </Style>
+  <Style Selector="Button.cat.selected">
+    <Setter Property="Background" Value="#027342" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.cat.selected /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#027342" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.cat.selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#035C36" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+
+  <!-- ===== Chip (size / discount / payment selectors) ===== -->
+  <Style Selector="Button.chip">
+    <Setter Property="Background" Value="White" />
+    <Setter Property="Foreground" Value="#027342" />
+    <Setter Property="BorderBrush" Value="#027342" />
+    <Setter Property="BorderThickness" Value="1.5" />
+    <Setter Property="CornerRadius" Value="16" />
+    <Setter Property="Padding" Value="12,5" />
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button.chip:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#EAF4EF" />
+    <Setter Property="BorderBrush" Value="#027342" />
+    <Setter Property="Foreground" Value="#027342" />
+  </Style>
+  <Style Selector="Button.chip.selected">
+    <Setter Property="Background" Value="#027342" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.chip.selected /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#027342" />
+    <Setter Property="BorderBrush" Value="#027342" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+  <Style Selector="Button.chip.selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#035C36" />
+    <Setter Property="Foreground" Value="White" />
+  </Style>
+
+  <!-- ===== Tile (item card / create tile) ===== -->
+  <Style Selector="Button.tile:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="#F2F8F5" />
+    <Setter Property="BorderBrush" Value="#027342" />
+  </Style>
+  <Style Selector="Button.tile.picked /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="BorderBrush" Value="#027342" />
+    <Setter Property="BorderThickness" Value="3" />
+  </Style>
+
+</Styles>

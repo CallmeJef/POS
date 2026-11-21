@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.PaymentMethodsDialog">
+  <Border Classes="card" Width="580" MaxHeight="720">
+    <DockPanel>
+
+      <Border DockPanel.Dock="Top" Padding="20,16" BorderBrush="#E3E8E5" BorderThickness="0,0,0,1">
+        <TextBlock Text="Payment Methods" Classes="h1" />
+      </Border>
+
+      <Border DockPanel.Dock="Bottom" Padding="20,14" BorderBrush="#E3E8E5" BorderThickness="0,1,0,0">
+        <Grid ColumnDefinitions="Auto,*">
+          <Button Classes="outline" Content="Return" Click="Return_Click" />
+        </Grid>
+      </Border>
+
+      <ScrollViewer>
+        <StackPanel Margin="20" Spacing="12">
+
+          <TextBlock Classes="muted" TextWrapping="Wrap"
+                     Text="The option to add a different kind of payment method aside from cash." />
+
+          <TextBlock x:Name="EmptyText" Text="No payment methods yet." Classes="muted" />
+
+          <ItemsControl x:Name="MethodList">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Classes="section" Padding="12" Margin="0,0,0,8">
+                  <Grid ColumnDefinitions="64,*,Auto">
+                    <Border Width="64" Height="64" CornerRadius="8" Background="#E3F1EA" ClipToBounds="True"
+                            Margin="0,0,12,0">
+                      <Image Source="{Binding Image}" Stretch="UniformToFill" IsVisible="{Binding HasImage}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2" Margin="0,0,12,0">
+                      <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                      <TextBlock Text="{Binding Details}" Classes="muted" FontSize="12"
+                                 TextWrapping="Wrap" IsVisible="{Binding HasDetails}" />
+                    </StackPanel>
+                    <Button Grid.Column="2" Classes="danger small" Content="Delete"
+                            Command="{Binding DeleteCommand}" VerticalAlignment="Center" />
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+          <Border Height="1" Background="#E3E8E5" Margin="0,4" />
+          <TextBlock Text="Add a payment method" FontWeight="Bold" FontSize="16" />
+
+          <TextBox x:Name="NameBox" MaxLength="40" Watermark="Name (e.g. GCash, Credit/Debit Card)" />
+          <TextBox x:Name="DetailsBox" AcceptsReturn="True" TextWrapping="Wrap" Height="80" MaxLength="300"
+                   Watermark="Details shown to the cashier (optional)" />
+
+          <Grid ColumnDefinitions="Auto,*">
+            <Border Width="96" Height="96" CornerRadius="10" Background="#E3F1EA" ClipToBounds="True">
+              <Panel>
+                <TextBlock x:Name="NoImageText" Text="No image" Classes="muted" FontSize="12"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Image x:Name="PreviewImage" Stretch="UniformToFill" />
+              </Panel>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="16,0,0,0" Spacing="8" VerticalAlignment="Center">
+              <Button Classes="outline" Content="Choose Image..." HorizontalAlignment="Left"
+                      Click="ChooseImage_Click" />
+              <Button Classes="ghost small" Content="Remove image" HorizontalAlignment="Left"
+                      Click="RemoveImage_Click" />
+            </StackPanel>
+          </Grid>
+
+          <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+          <Button Classes="primary" Content="Add Payment Method" HorizontalAlignment="Left" Click="Add_Click" />
+        </StackPanel>
+      </ScrollViewer>
+
+    </DockPanel>
+  </Border>
+</UserControl>

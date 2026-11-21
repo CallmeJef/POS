@@ -1,0 +1,165 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PosApp.ViewModels"
+             x:Class="PosApp.Views.AdminView">
+
+  <Grid ColumnDefinitions="240,*,270" Background="#F1F5F3">
+
+    <!-- ============ LEFT: categories ============ -->
+    <Border Grid.Column="0" Background="White" BorderBrush="#E3E8E5"
+            BorderThickness="0,0,1,0" Padding="14">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Spacing="10" Margin="0,0,0,12">
+          <TextBlock Text="Categories" Classes="h1" />
+          <Button Classes="primary" Content="+ Create Category"
+                  HorizontalAlignment="Stretch" Click="CreateCategory_Click" />
+        </StackPanel>
+        <ScrollViewer>
+          <ItemsControl x:Name="CategoryList">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,6">
+                  <Button Grid.Column="0" Classes="cat"
+                          Classes.selected="{Binding IsSelected}"
+                          Content="{Binding Name}"
+                          Command="{Binding SelectCommand}"
+                          HorizontalAlignment="Stretch" />
+                  <Button Grid.Column="1" Classes="ghost small" Content="Edit"
+                          Command="{Binding EditCommand}" Margin="4,0,0,0"
+                          VerticalAlignment="Center" />
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+
+    <!-- ============ CENTER: items ============ -->
+    <DockPanel Grid.Column="1" Margin="20">
+      <StackPanel DockPanel.Dock="Top" Margin="0,0,0,14">
+        <TextBlock x:Name="CategoryTitle" FontSize="24" FontWeight="Bold" />
+        <TextBlock x:Name="CategorySubtitle" Classes="muted" />
+      </StackPanel>
+      <Grid>
+        <ScrollViewer>
+          <ItemsControl x:Name="ItemGrid">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.DataTemplates>
+
+              <!-- "Create Item" tile: always first -->
+              <DataTemplate DataType="vm:CreateTile">
+                <Button Classes="tile" Width="180" Height="230" Margin="0,0,16,16"
+                        Command="{Binding Command}"
+                        Background="#EAF4EF" BorderBrush="#027342" BorderThickness="2"
+                        CornerRadius="14"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                  <StackPanel Spacing="4" HorizontalAlignment="Center">
+                    <TextBlock Text="+" FontSize="52" FontWeight="Light" Foreground="#027342"
+                               HorizontalAlignment="Center" />
+                    <TextBlock Text="Create Item" FontWeight="SemiBold" Foreground="#027342"
+                               HorizontalAlignment="Center" />
+                  </StackPanel>
+                </Button>
+              </DataTemplate>
+
+              <!-- Item card -->
+              <DataTemplate DataType="vm:ItemCard">
+                <Button Classes="tile" Classes.picked="{Binding IsSelected}"
+                        Width="180" Height="230" Margin="0,0,16,16" Padding="0"
+                        Command="{Binding TapCommand}"
+                        Background="White" BorderBrush="#E3E8E5" BorderThickness="1"
+                        CornerRadius="14"
+                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                  <Grid RowDefinitions="140,*">
+                    <Grid Grid.Row="0">
+                      <Border Background="#E3F1EA" CornerRadius="13,13,0,0" ClipToBounds="True">
+                        <Panel>
+                          <TextBlock Text="{Binding Initial}" FontSize="44" FontWeight="Bold"
+                                     Foreground="#027342" HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" IsVisible="{Binding !HasImage}" />
+                          <Image Source="{Binding Image}" Stretch="UniformToFill"
+                                 IsVisible="{Binding HasImage}" />
+                        </Panel>
+                      </Border>
+                      <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                IsVisible="{Binding SelectMode}" IsHitTestVisible="False"
+                                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8" />
+                    </Grid>
+                    <StackPanel Grid.Row="1" Margin="12,8" Spacing="2" VerticalAlignment="Center">
+                      <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
+                                 TextTrimming="CharacterEllipsis" />
+                      <TextBlock Text="{Binding PriceText}" Foreground="#027342" FontWeight="Bold" />
+                    </StackPanel>
+                  </Grid>
+                </Button>
+              </DataTemplate>
+
+            </ItemsControl.DataTemplates>
+          </ItemsControl>
+        </ScrollViewer>
+        <TextBlock x:Name="EmptyHint" Classes="muted" IsVisible="False"
+                   Text="Create a category on the left to get started."
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+      </Grid>
+    </DockPanel>
+
+    <!-- ============ RIGHT: account + admin tools ============ -->
+    <Border Grid.Column="2" Background="White" BorderBrush="#E3E8E5"
+            BorderThickness="1,0,0,0" Padding="16">
+      <DockPanel>
+
+        <!-- bottom: bulk delete -->
+        <StackPanel DockPanel.Dock="Bottom" Spacing="8" Margin="0,12,0,0">
+          <Button x:Name="CancelDeleteButton" Classes="outline" Content="Cancel"
+                  HorizontalAlignment="Stretch" IsVisible="False" Click="CancelDelete_Click" />
+          <Button x:Name="DeleteButton" Classes="danger" Content="Delete Items"
+                  HorizontalAlignment="Stretch" Click="Delete_Click" />
+        </StackPanel>
+
+        <StackPanel Spacing="10">
+          <!-- user name (top-left) + burger -->
+          <Grid ColumnDefinitions="*,Auto">
+            <StackPanel VerticalAlignment="Center">
+              <TextBlock x:Name="UserNameText" FontWeight="Bold" FontSize="18"
+                         TextTrimming="CharacterEllipsis" />
+              <TextBlock Text="Administrator" Classes="muted" FontSize="12" />
+            </StackPanel>
+            <Button Grid.Column="1" Classes="ghost" Padding="10" VerticalAlignment="Center">
+              <StackPanel Spacing="4" Width="22">
+                <Border Height="3" CornerRadius="2" Background="#027342" />
+                <Border Height="3" CornerRadius="2" Background="#027342" />
+                <Border Height="3" CornerRadius="2" Background="#027342" />
+              </StackPanel>
+              <Button.Flyout>
+                <MenuFlyout Placement="BottomEdgeAlignedRight">
+                  <MenuItem Header="Logout" Click="Logout_Click" />
+                </MenuFlyout>
+              </Button.Flyout>
+            </Button>
+          </Grid>
+
+          <Button Classes="primary" Content="Ledger" HorizontalAlignment="Stretch"
+                  Click="Ledger_Click" />
+
+          <Border Height="1" Background="#E3E8E5" Margin="0,6" />
+          <TextBlock Text="Manage" Classes="label" />
+
+          <Button Classes="outline" Content="Payment Methods" HorizontalAlignment="Stretch"
+                  Click="PaymentMethods_Click" />
+          <Button Classes="outline" Content="Create Cashier Account" HorizontalAlignment="Stretch"
+                  Click="CreateCashier_Click" />
+          <Button Classes="outline" Content="Modify Cashier Accounts" HorizontalAlignment="Stretch"
+                  Click="ModifyCashiers_Click" />
+          <Button Classes="outline" Content="Admin Account Settings" HorizontalAlignment="Stretch"
+                  Click="AdminSettings_Click" />
+        </StackPanel>
+      </DockPanel>
+    </Border>
+
+  </Grid>
+</UserControl>

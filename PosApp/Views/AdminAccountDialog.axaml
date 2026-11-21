@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.AdminAccountDialog">
+  <Border Classes="card" Width="440" MaxHeight="720">
+    <DockPanel>
+
+      <Border DockPanel.Dock="Top" Padding="20,16" BorderBrush="#E3E8E5" BorderThickness="0,0,0,1">
+        <TextBlock Text="Admin Account Settings" Classes="h1" />
+      </Border>
+
+      <Border DockPanel.Dock="Bottom" Padding="20,14" BorderBrush="#E3E8E5" BorderThickness="0,1,0,0">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <Button Grid.Column="0" Classes="outline" Content="Cancel" Click="Cancel_Click" />
+          <Button Grid.Column="2" Classes="primary" Content="Save Changes" Click="Save_Click" />
+        </Grid>
+      </Border>
+
+      <ScrollViewer>
+        <StackPanel Margin="20" Spacing="10">
+
+          <TextBlock Text="Username" Classes="label" />
+          <TextBox x:Name="UserBox" MaxLength="40" />
+
+          <TextBlock Text="New password (leave blank to keep)" Classes="label" />
+          <TextBox x:Name="NewPassBox" PasswordChar="•" />
+
+          <TextBlock Text="Confirm new password" Classes="label" />
+          <TextBox x:Name="ConfirmBox" PasswordChar="•" />
+
+          <TextBlock Text="New void code (leave blank to keep)" Classes="label" />
+          <TextBox x:Name="VoidBox" PasswordChar="•" />
+
+          <TextBlock Text="Passwords and the void code must be at least 6 characters." Classes="muted"
+                     FontSize="12" TextWrapping="Wrap" />
+
+          <Border Height="1" Background="#E3E8E5" Margin="0,4" />
+
+          <TextBlock Text="Current password (required to save)" Classes="label" />
+          <TextBox x:Name="CurrentBox" PasswordChar="•" />
+
+          <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+        </StackPanel>
+      </ScrollViewer>
+
+    </DockPanel>
+  </Border>
+</UserControl>

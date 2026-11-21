@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.LoginView">
+  <Grid Background="#F1F5F3">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+      <Border Classes="card" Width="400" Padding="32"
+              HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16">
+        <StackPanel Spacing="12">
+          <Border Width="76" Height="76" CornerRadius="38" Background="#027342"
+                  HorizontalAlignment="Center">
+            <TextBlock Text="POS" Foreground="White" FontWeight="Bold" FontSize="22"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+          </Border>
+          <TextBlock Text="Welcome back" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" />
+          <TextBlock Text="Sign in as Admin or Cashier" Classes="muted" HorizontalAlignment="Center" />
+
+          <TextBlock Text="Username" Classes="label" Margin="0,8,0,0" />
+          <TextBox x:Name="UsernameBox" Watermark="Username" MaxLength="40" />
+
+          <TextBlock Text="Password" Classes="label" />
+          <TextBox x:Name="PasswordBox" Watermark="Password" PasswordChar="•" />
+
+          <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+
+          <Button Classes="primary" Content="Sign in" HorizontalAlignment="Stretch"
+                  Margin="0,8,0,0" Click="Login_Click" />
+        </StackPanel>
+      </Border>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

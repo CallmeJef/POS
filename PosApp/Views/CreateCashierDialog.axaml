@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.CreateCashierDialog">
+  <Border Classes="card" Padding="24" Width="420">
+    <StackPanel Spacing="10">
+      <TextBlock Text="Create Cashier Account" Classes="h1" />
+
+      <TextBlock Text="Username" Classes="label" />
+      <TextBox x:Name="UserBox" MaxLength="40" />
+
+      <TextBlock Text="Password" Classes="label" />
+      <TextBox x:Name="PassBox" PasswordChar="•" />
+
+      <TextBlock Text="Confirm password" Classes="label" />
+      <TextBox x:Name="ConfirmBox" PasswordChar="•" />
+
+      <TextBlock Text="Password must be at least 6 characters." Classes="muted" FontSize="12" />
+      <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+
+      <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,8,0,0">
+        <Button Grid.Column="0" Classes="outline" Content="Cancel" Click="Cancel_Click" />
+        <Button Grid.Column="2" Classes="primary" Content="Create Account" Click="Create_Click" />
+      </Grid>
+    </StackPanel>
+  </Border>
+</UserControl>

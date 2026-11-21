@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.VoidOrderDialog">
+  <Border Classes="card" Padding="24" Width="400">
+    <StackPanel Spacing="10">
+      <TextBlock x:Name="TitleText" Classes="h1" />
+      <TextBlock x:Name="SummaryText" TextWrapping="Wrap" />
+      <TextBlock Text="Notice an Admin to Void order from queue and ledger."
+                 Classes="muted" FontSize="12" TextWrapping="Wrap" />
+
+      <TextBlock Text="Admin void code" Classes="label" Margin="0,6,0,0" />
+      <TextBox x:Name="CodeBox" PasswordChar="•" />
+
+      <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+
+      <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,8,0,0">
+        <Button Grid.Column="0" Classes="outline" Content="Cancel" Click="Cancel_Click" />
+        <Button Grid.Column="2" Classes="danger" Content="Void Order" Click="Void_Click" />
+      </Grid>
+    </StackPanel>
+  </Border>
+</UserControl>

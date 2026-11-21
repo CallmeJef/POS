@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.OptionEditor">
+  <!-- Reusable editor for one customization group (Size or Additions) of an item -->
+  <Border Classes="section" Padding="14">
+    <StackPanel Spacing="10">
+
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel>
+          <TextBlock x:Name="TitleText" FontWeight="SemiBold" FontSize="15" />
+          <TextBlock x:Name="HintText" Classes="muted" FontSize="12" TextWrapping="Wrap" />
+        </StackPanel>
+        <!-- deletes every ticked option in this group -->
+        <Button Grid.Column="1" Classes="danger small" Content="Delete"
+                VerticalAlignment="Center" Click="DeleteChecked_Click" />
+      </Grid>
+
+      <TextBlock x:Name="EmptyText" Text="Nothing added yet." Classes="muted" FontSize="12" />
+
+      <ItemsControl x:Name="OptionList">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,2">
+              <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" />
+              <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" />
+              <TextBlock Grid.Column="2" Text="{Binding PriceText}" Foreground="#027342"
+                         VerticalAlignment="Center" />
+            </Grid>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      <Grid ColumnDefinitions="*,120,Auto">
+        <TextBox x:Name="NewName" Grid.Column="0" Watermark="Name" MaxLength="40" Margin="0,0,8,0" />
+        <TextBox x:Name="NewPrice" Grid.Column="1" Watermark="+ price" Margin="0,0,8,0" />
+        <Button Grid.Column="2" Classes="primary small" Content="Add" Click="Add_Click" />
+      </Grid>
+
+      <Button x:Name="PresetButton" Classes="ghost small" Content="Quick add S / M / L"
+              HorizontalAlignment="Left" IsVisible="False" Click="Preset_Click" />
+    </StackPanel>
+  </Border>
+</UserControl>

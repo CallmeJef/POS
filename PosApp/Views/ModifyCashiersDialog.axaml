@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.ModifyCashiersDialog">
+  <Border Classes="card" Width="640" MaxHeight="640">
+    <DockPanel>
+
+      <Border DockPanel.Dock="Top" Padding="20,16" BorderBrush="#E3E8E5" BorderThickness="0,0,0,1">
+        <TextBlock Text="Modify Cashier Accounts" Classes="h1" />
+      </Border>
+
+      <Border DockPanel.Dock="Bottom" Padding="20,14" BorderBrush="#E3E8E5" BorderThickness="0,1,0,0">
+        <Grid ColumnDefinitions="Auto,*">
+          <Button Classes="outline" Content="Return" Click="Return_Click" />
+        </Grid>
+      </Border>
+
+      <Grid ColumnDefinitions="220,*" Margin="20" MinHeight="260">
+        <ListBox x:Name="CashierList" Grid.Column="0" SelectionChanged="CashierList_SelectionChanged">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Username}" Padding="4,6" />
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <TextBlock x:Name="HintText" Grid.Column="1" Classes="muted" Margin="16,0,0,0"
+                   Text="Select a cashier to edit." TextWrapping="Wrap" />
+
+        <StackPanel x:Name="EditPanel" Grid.Column="1" Margin="16,0,0,0" Spacing="10" IsVisible="False">
+          <TextBlock Text="Username" Classes="label" />
+          <TextBox x:Name="UserBox" MaxLength="40" />
+
+          <TextBlock Text="New password (leave blank to keep the current one)" Classes="label" />
+          <TextBox x:Name="PassBox" PasswordChar="•" />
+          <TextBlock Text="At least 6 characters." Classes="muted" FontSize="12" />
+
+          <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+          <TextBlock x:Name="StatusText" Classes="status" IsVisible="False" />
+
+          <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,6,0,0">
+            <Button Classes="primary" Content="Save Changes" Click="Save_Click" />
+            <Button Classes="danger" Content="Delete Cashier" Click="Delete_Click" />
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+
+    </DockPanel>
+  </Border>
+</UserControl>

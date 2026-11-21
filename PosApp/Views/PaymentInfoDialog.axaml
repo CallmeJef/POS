@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.PaymentInfoDialog">
+  <Border Classes="card" Padding="24" Width="420" MaxHeight="700">
+    <DockPanel>
+      <Grid DockPanel.Dock="Bottom" ColumnDefinitions="Auto,*,Auto" Margin="0,16,0,0">
+        <Button Grid.Column="0" Classes="outline" Content="Cancel" Click="Cancel_Click" />
+        <Button Grid.Column="2" x:Name="UseButton" Classes="primary" Click="Use_Click" />
+      </Grid>
+      <ScrollViewer>
+        <StackPanel Spacing="12">
+          <TextBlock x:Name="NameText" Classes="h1" TextWrapping="Wrap" />
+          <Border x:Name="ImageBox" Background="#E3F1EA" CornerRadius="12" ClipToBounds="True"
+                  Height="260" HorizontalAlignment="Stretch">
+            <Image x:Name="MethodImage" Stretch="Uniform" />
+          </Border>
+          <TextBlock x:Name="DetailsText" TextWrapping="Wrap" />
+        </StackPanel>
+      </ScrollViewer>
+    </DockPanel>
+  </Border>
+</UserControl>

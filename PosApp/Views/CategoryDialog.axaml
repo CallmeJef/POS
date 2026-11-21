@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PosApp.Views.CategoryDialog">
+  <Border Classes="card" Padding="24" Width="400">
+    <StackPanel Spacing="12">
+      <TextBlock x:Name="TitleText" Text="Create Category" Classes="h1" />
+      <TextBlock Text="Category name" Classes="label" />
+      <TextBox x:Name="NameBox" MaxLength="40"
+               Watermark="e.g. Coffee, Lugaw" />
+      <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+      <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,8,0,0">
+        <Button Grid.Column="0" Classes="outline" Content="Cancel" Click="Cancel_Click" />
+        <Button Grid.Column="1" x:Name="DeleteButton" Classes="danger small" Content="Delete Category"
+                HorizontalAlignment="Center" IsVisible="False" Click="Delete_Click" />
+        <Button Grid.Column="2" Classes="primary" Content="Save" Click="Save_Click" />
+      </Grid>
+    </StackPanel>
+  </Border>
+</UserControl>

@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:PosApp.Views"
+             x:Class="PosApp.Views.ItemEditorDialog">
+  <Border Classes="card" Width="620" MaxHeight="720">
+    <DockPanel>
+
+      <Border DockPanel.Dock="Top" Padding="20,16" BorderBrush="#E3E8E5" BorderThickness="0,0,0,1">
+        <TextBlock x:Name="TitleText" Text="Create Item" Classes="h1" />
+      </Border>
+
+      <Border DockPanel.Dock="Bottom" Padding="20,14" BorderBrush="#E3E8E5" BorderThickness="0,1,0,0">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <Button Grid.Column="0" Classes="outline" Content="Cancel" Click="Cancel_Click" />
+          <Button Grid.Column="2" Classes="primary" Content="Save Item" Click="Save_Click" />
+        </Grid>
+      </Border>
+
+      <ScrollViewer>
+        <StackPanel Margin="20" Spacing="12">
+
+          <!-- image + name -->
+          <Grid ColumnDefinitions="Auto,*">
+            <Border Width="180" Height="140" CornerRadius="12" Background="#E3F1EA" ClipToBounds="True">
+              <Panel>
+                <TextBlock x:Name="NoImageText" Text="No image" Classes="muted"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Image x:Name="PreviewImage" Stretch="UniformToFill" />
+              </Panel>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="16,0,0,0" Spacing="8" VerticalAlignment="Center">
+              <Button Classes="outline" Content="Choose Image..." HorizontalAlignment="Left"
+                      Click="ChooseImage_Click" />
+              <Button Classes="ghost small" Content="Remove image" HorizontalAlignment="Left"
+                      Click="RemoveImage_Click" />
+            </StackPanel>
+          </Grid>
+
+          <TextBlock Text="Item name" Classes="label" />
+          <TextBox x:Name="NameBox" MaxLength="60" Watermark="e.g. Coffe, Lugaw" />
+
+          <TextBlock Text="Base price (₱)" Classes="label" />
+          <TextBox x:Name="PriceBox" Watermark="0.00" />
+
+          <Border Height="1" Background="#E3E8E5" Margin="0,6" />
+          <TextBlock Text="Customizations" FontWeight="Bold" FontSize="16" />
+          <TextBlock Classes="muted" FontSize="12" TextWrapping="Wrap"
+                     Text="Options the cashier can pick for this item. Tick entries and press Delete to remove them." />
+
+          <views:OptionEditor x:Name="SizeEditor" />
+          <views:OptionEditor x:Name="AdditionEditor" />
+
+          <TextBlock x:Name="ErrorText" Classes="error" IsVisible="False" TextWrapping="Wrap" />
+        </StackPanel>
+      </ScrollViewer>
+
+    </DockPanel>
+  </Border>
+</UserControl>
