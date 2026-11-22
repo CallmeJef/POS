@@ -33,13 +33,13 @@ Restore dependencies:
 dotnet restore PosApp.Desktop/PosApp.Desktop.csproj
 ```
 
-## Run
+Run
 
 ```bash
 dotnet run --project PosApp.Desktop
 ```
 
-## Build
+Build
 
 ```bash
 dotnet build PosApp.Desktop/PosApp.Desktop.csproj
